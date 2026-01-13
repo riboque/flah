@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Termos de Uso - Plataforma Social</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding: 20px;
+        }
+        .terms-container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .terms-card {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        .terms-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        .terms-header i { font-size: 3rem; margin-bottom: 15px; }
+        .terms-header h1 { font-size: 1.8rem; margin-bottom: 5px; }
+        .terms-header p { opacity: 0.9; }
+        .terms-body { padding: 30px; }
+        .terms-content {
+            max-height: 400px;
+            overflow-y: auto;
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 25px;
+            font-size: 0.9rem;
+            line-height: 1.7;
+        }
+        .terms-content h5 { color: #667eea; margin: 15px 0 10px; }
+        .terms-content h5:first-child { margin-top: 0; }
+        .form-check { margin-bottom: 15px; }
+        .form-check-input:checked {
+            background-color: #667eea;
+            border-color: #667eea;
+        }
+        .form-check-label { cursor: pointer; }
+        .btn-accept {
+            width: 100%;
+            padding: 15px;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            border: none;
+            color: white;
+            transition: all 0.3s ease;
+            margin-bottom: 15px;
+        }
+        .btn-accept:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(40, 167, 69, 0.4);
+            color: white;
+        }
+        .btn-accept:disabled { opacity: 0.5; cursor: not-allowed; }
+        .login-link {
+            text-align: center;
+            padding-top: 15px;
+            border-top: 1px solid #e0e0e0;
+        }
+        .login-link a { color: #667eea; text-decoration: none; font-weight: 500; }
+        .login-link a:hover { text-decoration: underline; }
+        .alert { border-radius: 10px; }
+    </style>
+</head>
+<body>
+    <div class="terms-container">
+        <div class="terms-card">
+            <div class="terms-header">
+                <i class="fas fa-scroll"></i>
+                <h1>Termos de Uso</h1>
+                <p>Por favor, leia atentamente antes de continuar</p>
+            </div>
+            
+            <div class="terms-body">
+                <div id="alertContainer"></div>
+                
+                <!-- Termos de Uso -->
+                <div class="terms-content">
+                    <h5><i class="fas fa-scroll me-2"></i>Termos de Uso</h5>
+                    <p>Ao utilizar esta plataforma, você concorda com os seguintes termos:</p>
+                    
+                    <h5><i class="fas fa-user-shield me-2"></i>1. Uso da Plataforma</h5>
+                    <p>Esta é uma plataforma de comunicação e rede social. Você se compromete a usar o serviço de forma respeitosa e seguindo as diretrizes da comunidade.</p>
+                    
+                    <h5><i class="fas fa-lock me-2"></i>2. Privacidade</h5>
+                    <p>Coletamos informações básicas para melhorar sua experiência. Seus dados são protegidos e não serão compartilhados com terceiros sem seu consentimento.</p>
+                    
+                    <h5><i class="fas fa-database me-2"></i>3. Dados Coletados</h5>
+                    <p>Coletamos: nome, email, informações do dispositivo (IP, navegador, sistema operacional) para fins de segurança e melhoria do serviço.</p>
+                    
+                    <h5><i class="fas fa-comments me-2"></i>4. Conduta</h5>
+                    <p>Não é permitido: spam, assédio, conteúdo ofensivo, atividades ilegais ou qualquer comportamento que prejudique outros usuários.</p>
+                    
+                    <h5><i class="fas fa-gavel me-2"></i>5. Penalidades</h5>
+                    <p>O descumprimento das regras pode resultar em suspensão ou banimento permanente da plataforma.</p>
+                    
+                    <h5><i class="fas fa-shield-alt me-2"></i>6. Segurança</h5>
+                    <p>Você é responsável pela segurança de sua conta. Não compartilhe suas credenciais de acesso com terceiros.</p>
+                    
+                    <h5><i class="fas fa-sync-alt me-2"></i>7. Atualizações</h5>
+                    <p>Estes termos podem ser atualizados periodicamente. Você será notificado de quaisquer alterações significativas.</p>
+                </div>
+                
+                <!-- Checkbox de aceite -->
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="aceitoTermos">
+                    <label class="form-check-label" for="aceitoTermos">
+                        <strong>Li e aceito os Termos de Uso</strong>
+                    </label>
+                </div>
+                
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="aceitoColeta">
+                    <label class="form-check-label" for="aceitoColeta">
+                        <strong>Autorizo a coleta de dados para melhoria do serviço</strong>
+                    </label>
+                </div>
+                
+                <!-- Botão para aceitar e ir para registro -->
+                <button type="button" class="btn btn-accept" id="btnAccept" disabled>
+                    <i class="fas fa-arrow-right me-2"></i>Aceitar e Criar Conta
+                </button>
+                
+                <div class="login-link">
+                    <p>Já tem uma conta? <a href="/login">Entrar</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Habilitar botão quando checkboxes estiverem marcados
+        const checkboxes = document.querySelectorAll('.form-check-input');
+        checkboxes.forEach(cb => {
+            cb.addEventListener('change', () => {
+                const allChecked = document.getElementById('aceitoTermos').checked && 
+                                   document.getElementById('aceitoColeta').checked;
+                document.getElementById('btnAccept').disabled = !allChecked;
+            });
+        });
+        
+        // Ao clicar no botão, salvar aceite e redirecionar para registro
+        document.getElementById('btnAccept').addEventListener('click', function() {
+            // Salvar no sessionStorage que os termos foram aceitos
+            sessionStorage.setItem('termos_aceitos', 'true');
+            sessionStorage.setItem('data_aceite_termos', new Date().toISOString());
+            
+            // Redirecionar para página de registro
+            window.location.href = '/register';
+        });
+        
+        function showAlert(type, message) {
+            document.getElementById('alertContainer').innerHTML = `
+                <div class="alert alert-${type} alert-dismissible fade show" role="alert">
+                    <i class="fas fa-${type === 'success' ? 'check-circle' : 'exclamation-circle'} me-2"></i>
+                    ${message}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+            `;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Plataforma Social</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .login-container {
+            width: 100%;
+            max-width: 420px;
+            padding: 20px;
+        }
+        .login-card {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        .login-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+        }
+        .login-header i {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+        .login-header h1 {
+            font-size: 1.8rem;
+            margin-bottom: 5px;
+        }
+        .login-header p {
+            opacity: 0.9;
+            font-size: 0.95rem;
+        }
+        .login-body {
+            padding: 40px 30px;
+        }
+        .form-floating {
+            margin-bottom: 20px;
+        }
+        .form-floating input {
+            border-radius: 10px;
+            border: 2px solid #e0e0e0;
+            padding: 15px;
+            height: auto;
+        }
+        .form-floating input:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.15);
+        }
+        .form-floating label {
+            padding: 15px;
+        }
+        .btn-login {
+            width: 100%;
+            padding: 15px;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            color: white;
+            transition: all 0.3s ease;
+        }
+        .btn-login:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+            background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+        }
+        .btn-login:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+            transform: none;
+        }
+        .divider {
+            display: flex;
+            align-items: center;
+            margin: 25px 0;
+            color: #999;
+        }
+        .divider::before, .divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: #e0e0e0;
+        }
+        .divider span {
+            padding: 0 15px;
+            font-size: 0.9rem;
+        }
+        .register-link {
+            text-align: center;
+        }
+        .register-link a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .register-link a:hover {
+            text-decoration: underline;
+        }
+        .alert {
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        .remember-forgot {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            font-size: 0.9rem;
+        }
+        .remember-forgot a {
+            color: #667eea;
+            text-decoration: none;
+        }
+        .form-check-input:checked {
+            background-color: #667eea;
+            border-color: #667eea;
+        }
+        .spinner-border {
+            width: 1.2rem;
+            height: 1.2rem;
+            margin-right: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-card">
+            <div class="login-header">
+                <i class="fas fa-users"></i>
+                <h1>Bem-vindo</h1>
+                <p>Plataforma Social</p>
+            </div>
+            
+            <div class="login-body">
+                <div id="alertContainer"></div>
+                
+                <form id="loginForm">
+                    <div class="form-floating">
+                        <input type="email" class="form-control" id="email" placeholder="Email" required>
+                        <label for="email"><i class="fas fa-envelope me-2"></i>Email</label>
+                    </div>
+                    
+                    <div class="form-floating">
+                        <input type="password" class="form-control" id="senha" placeholder="Senha" required>
+                        <label for="senha"><i class="fas fa-lock me-2"></i>Senha</label>
+                    </div>
+                    
+                    <div class="remember-forgot">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="lembrar">
+                            <label class="form-check-label" for="lembrar">Lembrar-me</label>
+                        </div>
+                        <a href="#">Esqueceu a senha?</a>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-login" id="btnLogin">
+                        <i class="fas fa-sign-in-alt me-2"></i>Entrar
+                    </button>
+                </form>
+                
+                <div class="divider">
+                    <span>ou</span>
+                </div>
+                
+                <div class="register-link">
+                    <p>Não tem uma conta? <a href="/register">Criar conta</a></p>
+                </div>
+            </div>
+        </div>
+        
+        <p class="text-center text-white mt-4 opacity-75">
+            <small>&copy; 2026 Plataforma Social. Todos os direitos reservados.</small>
+        </p>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const API_BASE = '/api/db';
+        
+        // Verificar se já está logado - apenas se tem token
+        document.addEventListener('DOMContentLoaded', () => {
+            const token = localStorage.getItem('auth_token') || sessionStorage.getItem('auth_token');
+            const cliente = JSON.parse(localStorage.getItem('cliente') || '{}');
+            
+            // Se tem token e dados do cliente, ir direto para home (home fará validação)
+            if (token && cliente.id) {
+                const nomeExibicao = cliente.dados_extras?.nome_exibicao || localStorage.getItem('chat_username');
+                if (nomeExibicao) {
+                    window.location.href = '/';
+                } else {
+                    window.location.href = '/escolher-nome';
+                }
+                return;
+            }
+            
+            // Se tem token mas não tem cliente, limpar e ficar na página de login
+            if (token && !cliente.id) {
+                localStorage.removeItem('auth_token');
+                sessionStorage.removeItem('auth_token');
+            }
+        });
+        
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const btn = document.getElementById('btnLogin');
+            const email = document.getElementById('email').value;
+            const senha = document.getElementById('senha').value;
+            const lembrar = document.getElementById('lembrar').checked;
+            
+            btn.disabled = true;
+            btn.innerHTML = '<span class="spinner-border"></span>Entrando...';
+            
+            try {
+                const resp = await fetch(`${API_BASE}/auth/login`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, senha })
+                });
+                
+                const data = await resp.json();
+                
+                if (data.success) {
+                    // Salvar token
+                    if (lembrar) {
+                        localStorage.setItem('auth_token', data.token);
+                    } else {
+                        sessionStorage.setItem('auth_token', data.token);
+                    }
+                    
+                    // Salvar cookie também para verificação server-side
+                    document.cookie = `auth_token=${data.token}; path=/; max-age=${lembrar ? 86400*30 : 0}`;
+                    
+                    // Salvar dados do cliente
+                    localStorage.setItem('cliente', JSON.stringify(data.cliente));
+                    
+                    showAlert('success', 'Login realizado com sucesso! Redirecionando...');
+                    
+                    // Verificar se já tem nome de exibição
+                    const nomeExibicao = data.cliente.dados_extras?.nome_exibicao;
+                    
+                    setTimeout(() => {
+                        if (nomeExibicao) {
+                            localStorage.setItem('chat_username', nomeExibicao);
+                            window.location.href = '/';  // Vai para home do usuário
+                        } else {
+                            window.location.href = '/escolher-nome';
+                        }
+                    }, 1000);
+                } else {
+                    showAlert('danger', data.error || 'Credenciais inválidas');
+                    btn.disabled = false;
+                    btn.innerHTML = '<i class="fas fa-sign-in-alt me-2"></i>Entrar';
+                }
+            } catch (error) {
+                showAlert('danger', 'Erro ao conectar com o servidor');
+                btn.disabled = false;
+                btn.innerHTML = '<i class="fas fa-sign-in-alt me-2"></i>Entrar';
+            }
+        });
+        
+        function showAlert(type, message) {
+            document.getElementById('alertContainer').innerHTML = `
+                <div class="alert alert-${type} alert-dismissible fade show" role="alert">
+                    <i class="fas fa-${type === 'success' ? 'check-circle' : 'exclamation-circle'} me-2"></i>
+                    ${message}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+            `;
+        }
+    </script>
+</body>
+</html>

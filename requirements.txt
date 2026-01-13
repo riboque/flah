@@ -1,0 +1,20 @@
+Flask==2.3.2
+Werkzeug==2.3.6
+psutil==5.9.5
+requests==2.31.0
+flask-socketio==5.3.4
+python-socketio==5.9.0
+cryptography>=41.0.0
+pyopenssl>=23.0.0
+
+# Banco de Dados
+Flask-SQLAlchemy>=3.0.0
+SQLAlchemy>=2.0.0
+
+# Drivers de Banco de Dados (instale conforme necessário)
+psycopg2-binary>=2.9.0    # PostgreSQL
+# pymysql>=1.1.0          # MySQL (descomente se necessário)
+# mysql-connector-python   # MySQL alternativo
+
+# Utilitários
+python-dotenv>=1.0.0       # Para carregar variáveis de .env

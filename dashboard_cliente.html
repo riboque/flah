@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Sistema de Monitoramento</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #667eea;
+            --secondary: #764ba2;
+        }
+        body {
+            background-color: #f5f7fb;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .navbar {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+        }
+        .navbar-brand {
+            font-weight: 700;
+            color: white !important;
+        }
+        .nav-link {
+            color: rgba(255,255,255,0.9) !important;
+        }
+        .nav-link:hover {
+            color: white !important;
+        }
+        .user-dropdown {
+            color: white;
+            cursor: pointer;
+        }
+        .user-dropdown img {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            border: 2px solid rgba(255,255,255,0.5);
+        }
+        .welcome-card {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 25px;
+        }
+        .welcome-card h2 {
+            margin-bottom: 10px;
+        }
+        .stat-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            transition: transform 0.3s;
+            height: 100%;
+        }
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+        .stat-card .icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+        .stat-card .icon.bg-primary { background: rgba(102, 126, 234, 0.15); color: var(--primary); }
+        .stat-card .icon.bg-success { background: rgba(40, 167, 69, 0.15); color: #28a745; }
+        .stat-card .icon.bg-warning { background: rgba(255, 193, 7, 0.15); color: #ffc107; }
+        .stat-card .icon.bg-info { background: rgba(23, 162, 184, 0.15); color: #17a2b8; }
+        .stat-card h3 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+        .stat-card p {
+            color: #888;
+            margin: 0;
+        }
+        .quick-actions {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        }
+        .quick-actions h5 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+        .action-btn {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            border-radius: 10px;
+            text-decoration: none;
+            color: #333;
+            background: #f8f9fa;
+            margin-bottom: 10px;
+            transition: all 0.3s;
+        }
+        .action-btn:hover {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            transform: translateX(5px);
+        }
+        .action-btn i {
+            font-size: 1.2rem;
+            margin-right: 15px;
+            width: 25px;
+        }
+        .activity-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        }
+        .activity-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        .activity-item:last-child {
+            border-bottom: none;
+        }
+        .activity-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-size: 0.9rem;
+        }
+        .activity-icon.login { background: rgba(40, 167, 69, 0.15); color: #28a745; }
+        .activity-icon.device { background: rgba(23, 162, 184, 0.15); color: #17a2b8; }
+        .activity-icon.alert { background: rgba(255, 193, 7, 0.15); color: #ffc107; }
+        .profile-section {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        }
+        .profile-header {
+            text-align: center;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        .profile-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+            font-size: 2rem;
+            color: white;
+        }
+        .profile-info {
+            padding-top: 20px;
+        }
+        .profile-info p {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            color: #666;
+        }
+        .profile-info i {
+            width: 25px;
+            color: var(--primary);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="/dashboard">
+                <i class="fas fa-shield-halved me-2"></i>MonitorSys
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/dashboard"><i class="fas fa-home me-1"></i> Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/monitor"><i class="fas fa-desktop me-1"></i> Dispositivos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/chat"><i class="fas fa-comments me-1"></i> Chat</a>
+                    </li>
+                </ul>
+                <div class="dropdown">
+                    <div class="user-dropdown dropdown-toggle d-flex align-items-center" data-bs-toggle="dropdown">
+                        <div class="profile-avatar me-2" style="width:35px;height:35px;font-size:1rem;" id="navAvatar">U</div>
+                        <span id="navUserName">Usuário</span>
+                    </div>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <li><a class="dropdown-item" href="#" onclick="editarPerfil()"><i class="fas fa-user me-2"></i>Meu Perfil</a></li>
+                        <li><a class="dropdown-item" href="#"><i class="fas fa-cog me-2"></i>Configurações</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item text-danger" href="#" onclick="logout()"><i class="fas fa-sign-out-alt me-2"></i>Sair</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container py-4">
+        <!-- Welcome Card -->
+        <div class="welcome-card">
+            <div class="row align-items-center">
+                <div class="col-md-8">
+                    <h2><i class="fas fa-hand-wave me-2"></i>Bem-vindo, <span id="welcomeName">Usuário</span>!</h2>
+                    <p class="mb-0 opacity-75">Aqui está um resumo do seu sistema de monitoramento.</p>
+                </div>
+                <div class="col-md-4 text-md-end mt-3 mt-md-0">
+                    <span class="badge bg-light text-dark px-3 py-2">
+                        <i class="fas fa-calendar me-1"></i>
+                        <span id="dataAtual"></span>
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Stats Row -->
+        <div class="row mb-4">
+            <div class="col-md-3 mb-3">
+                <div class="stat-card">
+                    <div class="icon bg-primary"><i class="fas fa-desktop"></i></div>
+                    <h3 id="statDispositivos">0</h3>
+                    <p>Meus Dispositivos</p>
+                </div>
+            </div>
+            <div class="col-md-3 mb-3">
+                <div class="stat-card">
+                    <div class="icon bg-success"><i class="fas fa-signal"></i></div>
+                    <h3 id="statOnline">0</h3>
+                    <p>Online Agora</p>
+                </div>
+            </div>
+            <div class="col-md-3 mb-3">
+                <div class="stat-card">
+                    <div class="icon bg-warning"><i class="fas fa-network-wired"></i></div>
+                    <h3 id="statConexoes">0</h3>
+                    <p>Conexões Ativas</p>
+                </div>
+            </div>
+            <div class="col-md-3 mb-3">
+                <div class="stat-card">
+                    <div class="icon bg-info"><i class="fas fa-comments"></i></div>
+                    <h3 id="statMensagens">0</h3>
+                    <p>Mensagens Hoje</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Quick Actions -->
+            <div class="col-md-4 mb-4">
+                <div class="quick-actions">
+                    <h5><i class="fas fa-bolt me-2"></i>Ações Rápidas</h5>
+                    <a href="/monitor" class="action-btn">
+                        <i class="fas fa-plus-circle"></i>
+                        <span>Adicionar Dispositivo</span>
+                    </a>
+                    <a href="/chat" class="action-btn">
+                        <i class="fas fa-paper-plane"></i>
+                        <span>Enviar Mensagem</span>
+                    </a>
+                    <a href="#" class="action-btn" onclick="editarPerfil()">
+                        <i class="fas fa-user-edit"></i>
+                        <span>Editar Perfil</span>
+                    </a>
+                    <a href="/clientes" class="action-btn">
+                        <i class="fas fa-users"></i>
+                        <span>Gerenciar Clientes</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Profile Section -->
+            <div class="col-md-4 mb-4">
+                <div class="profile-section">
+                    <div class="profile-header">
+                        <div class="profile-avatar" id="profileAvatar">U</div>
+                        <h5 id="profileName">Carregando...</h5>
+                        <span class="badge bg-primary" id="profileNivel">Usuário</span>
+                    </div>
+                    <div class="profile-info">
+                        <p><i class="fas fa-envelope"></i> <span id="profileEmail">-</span></p>
+                        <p><i class="fas fa-phone"></i> <span id="profileTelefone">-</span></p>
+                        <p><i class="fas fa-building"></i> <span id="profileEmpresa">-</span></p>
+                        <p><i class="fas fa-map-marker-alt"></i> <span id="profileCidade">-</span></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Activity -->
+            <div class="col-md-4 mb-4">
+                <div class="activity-card">
+                    <h5><i class="fas fa-history me-2"></i>Atividade Recente</h5>
+                    <div id="activityList">
+                        <div class="activity-item">
+                            <div class="activity-icon login"><i class="fas fa-sign-in-alt"></i></div>
+                            <div>
+                                <strong>Login realizado</strong>
+                                <small class="text-muted d-block">Agora mesmo</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const API_BASE = '/api/db';
+        let clienteData = null;
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // Verificar autenticação
+            const token = localStorage.getItem('auth_token') || sessionStorage.getItem('auth_token');
+            if (!token) {
+                window.location.href = '/login';
+                return;
+            }
+
+            // Carregar dados do cliente
+            clienteData = JSON.parse(localStorage.getItem('cliente') || '{}');
+            
+            // Verificar se tem nome de exibição
+            const nomeExibicao = clienteData.dados_extras?.nome_exibicao || localStorage.getItem('chat_username');
+            if (!nomeExibicao) {
+                window.location.href = '/escolher-nome';
+                return;
+            }
+            
+            if (clienteData.nome) {
+                atualizarInterface(clienteData);
+            }
+
+            // Validar token e carregar dados atualizados
+            validarECarregarDados(token);
+
+            // Data atual
+            document.getElementById('dataAtual').textContent = new Date().toLocaleDateString('pt-BR', {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+
+            // Carregar estatísticas
+            carregarEstatisticas();
+        });
+
+        async function validarECarregarDados(token) {
+            try {
+                const resp = await fetch(`${API_BASE}/auth/validar`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                const data = await resp.json();
+
+                if (!data.success || !data.valido) {
+                    logout();
+                    return;
+                }
+
+                if (data.cliente) {
+                    clienteData = data.cliente;
+                    localStorage.setItem('cliente', JSON.stringify(clienteData));
+                    atualizarInterface(clienteData);
+                }
+            } catch (e) {
+                console.error('Erro ao validar token:', e);
+            }
+        }
+
+        function atualizarInterface(cliente) {
+            const inicial = (cliente.nome || 'U').charAt(0).toUpperCase();
+            
+            document.getElementById('welcomeName').textContent = cliente.nome?.split(' ')[0] || 'Usuário';
+            document.getElementById('navUserName').textContent = cliente.nome?.split(' ')[0] || 'Usuário';
+            document.getElementById('navAvatar').textContent = inicial;
+            document.getElementById('profileAvatar').textContent = inicial;
+            document.getElementById('profileName').textContent = cliente.nome || '-';
+            document.getElementById('profileEmail').textContent = cliente.email || '-';
+            document.getElementById('profileTelefone').textContent = cliente.telefone || 'Não informado';
+            document.getElementById('profileEmpresa').textContent = cliente.empresa || 'Não informado';
+            document.getElementById('profileCidade').textContent = cliente.cidade ? `${cliente.cidade} - ${cliente.estado || ''}` : 'Não informado';
+            document.getElementById('profileNivel').textContent = cliente.nivel_acesso || 'Usuário';
+        }
+
+        async function carregarEstatisticas() {
+            try {
+                const resp = await fetch(`${API_BASE}/estatisticas`);
+                const data = await resp.json();
+
+                if (data.success) {
+                    const stats = data.estatisticas;
+                    document.getElementById('statDispositivos').textContent = stats.total_dispositivos || 0;
+                    document.getElementById('statOnline').textContent = stats.dispositivos_online || 0;
+                    document.getElementById('statConexoes').textContent = stats.total_conexoes || 0;
+                    document.getElementById('statMensagens').textContent = stats.mensagens_hoje || 0;
+                }
+            } catch (e) {
+                console.error('Erro ao carregar estatísticas:', e);
+            }
+        }
+
+        function editarPerfil() {
+            alert('Funcionalidade de edição de perfil em desenvolvimento');
+        }
+
+        function logout() {
+            const token = localStorage.getItem('auth_token') || sessionStorage.getItem('auth_token');
+            
+            fetch(`${API_BASE}/auth/logout`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                }
+            }).finally(() => {
+                localStorage.removeItem('auth_token');
+                localStorage.removeItem('cliente');
+                localStorage.removeItem('chat_username');
+                localStorage.removeItem('chatUsername');
+                sessionStorage.removeItem('auth_token');
+                document.cookie = 'auth_token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT';
+                window.location.href = '/login';
+            });
+        }
+    </script>
+</body>
+</html>
